@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Document Details</h1>
+   <table border="1">
+       <tr>
+           <th>Id</th>
+           <th>Box</th>
+           <th>Folder</th>
+           <th>Qualification</th>
+           <th>Document Type</th>
+           <th>Language</th>
+           <th>Employee</th>
+       </tr>
+       
+       <tr>
+           <td>{{document.id}}</td>
+           <td>{{document.box}}</td>
+           <td>{{document.folder}}</td>
+           <td>{{document.qualification}}</td>
+           <td>{{document.document_type}}</td>
+           <td>{{document.language}}</td>
+           <td>{{document.employee}}</td>
+       </tr>
+       
+   </table>
+   
+   <p>{{ .id }} {{ project.name }} <a href="#">Show</a> <a href="#">Edit</a> <a href="#">Delete</a> </p>
+   
+</body>
+</html>

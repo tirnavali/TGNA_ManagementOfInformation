@@ -1,9 +1,27 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-from .models import Project
+from .models import Project, Document
 from django.template import loader
+from .forms import DocumentForm
 
 # Create your views here.
+
+def new_document(request):
+    form = DocumentForm()
+    context = {'form' : form}
+    return render(request, 'archive/new_document.html', context)
+
+def index_documents(request):
+    context = {}
+    documents = Document.objects.all()
+    context['documents'] = documents
+    return render(request, 'archive/index_documents.html', context)
+
+def show_document(request, pk: int):
+    context = {}
+    document = get_object_or_404(Document, pk=pk)
+    context['document'] = document
+    return render(request, 'archive/show_document.html', context)
 
 def index(request):
     projects = Project.objects.all()

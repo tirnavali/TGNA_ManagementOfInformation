@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>New Document</h1>
+   {% if form.subject.errors %}
+    <ol>
+    {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+{% endif %}
+   <form>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Save</button>
+   </form>
+
+   <p>{{ .id }} {{ project.name }} <a href="#">Show</a> <a href="#">Edit</a> <a href="#">Delete</a> </p>
+   
+</body>
+</html>

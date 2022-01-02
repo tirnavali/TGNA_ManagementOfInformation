@@ -23,20 +23,13 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-class Document(models.Model):
-    box = models.IntegerField()
-    folder = models.IntegerField()
-    qualification = models.ForeignKey(Qualification, on_delete=models.SET_NULL, null=True)  
-    document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
-    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True) 
 
-    def __str__(self):
-        return "Document object"
 
 VACATION_COHICES= (
     ('tam','TAM'),
     ('yarım', 'YARIM'),
 )
+
 class Vacation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     vacation = models.CharField(max_length = 10, choices = VACATION_COHICES, default= 'tam')
@@ -46,3 +39,19 @@ class Vacation(models.Model):
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return str(self.user)
+    
+
+
+class Document(models.Model):
+    box = models.IntegerField()
+    folder = models.IntegerField()
+    qualification = models.ForeignKey(Qualification, on_delete=models.SET_NULL, null=True)  
+    document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True) 
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return "Document object"
