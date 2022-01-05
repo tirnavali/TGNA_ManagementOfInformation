@@ -61,6 +61,7 @@ class Employee(models.Model):
 
 
 class Document(models.Model):
+    project = models.ForeignKey(Project, verbose_name=("Projects"), on_delete=models.SET_NULL, null=True)
     box = models.IntegerField()
     folder = models.IntegerField()
     qualification = models.ForeignKey(Qualification, on_delete=models.SET_NULL, null=True)  
