@@ -19,9 +19,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-
-
-    
+ 
 
 class Qualification(models.Model):    
     name = models.CharField(max_length = 100)
@@ -53,21 +51,63 @@ class Vacation(models.Model):
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = models.CharField(max_length=100)
-    
+    department = models.CharField(max_length=100)    
     def __str__(self):
         return str(self.user)
     
+class SpecialNumberDetail(models.Model):
+    name = models.CharField(max_length=150)
+    def __str__(self):
+        return str(self.name)
 
+class Toponym(models.Model):
+    name = models.CharField(max_length=250)
+    def __str__(self):
+        return str(self.name)
+
+class Subject(models.Model):
+    name = models.CharField(max_length=250)
+    def __str__(self):
+        return str(self.name)
+
+class Person(models.Model):
+    name = models.CharField(max_length=250)
+    def __str__(self):
+        return str(self.name)
+
+class PhisycalStatus(models.Model):
+    name = models.CharField(max_length=250)
+    def __str__(self):
+        return str(self.name)
+
+class Privacy(models.Model):
+    name = models.CharField(max_length=250)
+    def __str__(self):
+        return str(self.name)
 
 class Document(models.Model):
     project = models.ForeignKey(Project, verbose_name=("Projects"), on_delete=models.SET_NULL, null=True)
-    box = models.IntegerField()
-    folder = models.IntegerField()
+    organization_code = models.CharField(max_length=100)
+    box = models.PositiveSmallIntegerField() 
+    folder = models.PositiveSmallIntegerField()
+    order = models.PositiveIntegerField()
+    special_number_detail = models.ForeignKey(SpecialNumberDetail, on_delete=models.SET_NULL, blank=True, null=True)
+    special_number = models.PositiveIntegerField(blank=True, null=True)
+    summary = models.TextField(null=True)
+    first_date = models.DateField(auto_now=False, auto_now_add=False)
+    last_date = models.DateField(auto_now=False, auto_now_add=False)
     qualification = models.ForeignKey(Qualification, on_delete=models.SET_NULL, null=True)  
     document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
-    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True) 
+    toponym = models.ForeignKey(Toponym, on_delete=models.SET_NULL, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
+    person = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
+    phisycal_status = models.ForeignKey(PhisycalStatus, on_delete=models.SET_NULL, null=True)
+    privacy = models.ForeignKey(Privacy, on_delete=models.SET_NULL, null=True)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
+    page_count = models.PositiveIntegerField(null=True)
+    image_count = models.PositiveIntegerField(null=True)
+    explaination = models.TextField(null=True)
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
-
+    created_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     def __str__(self):
         return "Document object"
