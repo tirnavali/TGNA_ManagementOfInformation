@@ -1,9 +1,18 @@
 from django.contrib import admin
-from .models import Project, Document, Qualification, DocumentType, Language
+from .models import Project, Document, Qualification, DocumentType, Language, ProjectDetail
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Employee, Vacation
 # Register your models here.
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    
+    list_display = ('name','sub_projects_view')
+
+    @admin.display(empty_value='none')
+    def sub_projects_view(self, obj):
+         return obj.project.all()
 
 class EmployeeInline(admin.StackedInline):
     model = Employee
@@ -21,7 +30,8 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
-admin.site.register(Project)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(ProjectDetail)
 admin.site.register(Document)
 admin.site.register(Qualification)
 admin.site.register(DocumentType)

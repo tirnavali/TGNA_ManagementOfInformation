@@ -3,10 +3,25 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
+class ProjectDetail(models.Model): 
+    daily_criteria = models.PositiveSmallIntegerField() 
+    completed = models.BooleanField()
+    to_do = models.TextField()
+    created_at = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+
 class Project(models.Model):
     name = models.CharField(max_length = 200)
+    top_project = models.ForeignKey('self', verbose_name= ("Top Project"), related_name=("project"), on_delete=models.SET_NULL,blank=True, null=True)
+    project_detail = models.OneToOneField(ProjectDetail, on_delete=models.SET_NULL, blank=True, null=True)
+    
     def __str__(self):
         return self.name
+
+
+
+    
 
 class Qualification(models.Model):    
     name = models.CharField(max_length = 100)
