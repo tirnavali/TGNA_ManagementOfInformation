@@ -15,7 +15,7 @@ def index_documents(request):
     context = {}
     documents = Document.objects.all()
     context['documents'] = documents
-    return render(request, 'archive/index_documents.html', context)
+    return render(request, 'archive/documents.html', context)
 
 def show_document(request, pk: int):
     context = {}
